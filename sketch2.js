@@ -16,13 +16,16 @@ let t = 0;
 tt = 0;
 
 //for color table
-function preload() {}
+function preload() {
+  palettes = loadJSON('colors.json');
+}
 
 function setup() {
   /*change colorMode for HSB and find json file 
   try to work with gardiant to change background  
  
   **/
+  palettesArray = Object.values(palettes);
   createCanvas(windowWidth, windowHeight);
   background(0);
   noStroke();
@@ -32,14 +35,25 @@ function draw() {
   noLoop();
   noStroke();
   // noiseSeed(1);
-  sequenceJump = [1, 3, 1, 4, 12];
+  sequenceJump = [1, 4, 1, 1, 22];
 
   for (y = 0; y <= height; y += 25) {
     for (x = 0; x <= width; x += 25) {
       //increment this value by the number inside insequence[jump] location
       if (i == incAndJump) {
+        palette1 = floor(random(palettesArray.length));
+        fill(
+          palettesArray[palette1].rgb[0],
+          palettesArray[palette1].rgb[1],
+          palettesArray[palette1].rgb[2]
+        );
+        ellipse(x, y, 65, 65);
+        if (sequenceJump[arrayLooper] > 10) {
+        } else {
+          ellipse(x, y, 50, 50);
+        }
         fill(255, random(256));
-        rect(x, y, 50, 50);
+
         incAndJump += sequenceJump[arrayLooper];
         arrayLooper = (arrayLooper + 1) % sequenceJump.length;
       }
